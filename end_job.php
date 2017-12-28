@@ -42,17 +42,17 @@
 
 
 
- <!--   <main role="main" class="container">
+ <!--  <main role="main" class="container">
       <div class="jumbotron">
         <h1>Navbar example</h1>
         <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser's viewport.</p>
         <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
       </div>
     </main> -->
-    <div id="wrapper" style="margin-top: 60px;">
+    
 
 	
-	<?php
+<?php
 	/*if($_SESSION['username'] != null){
 	        echo "歡迎您&nbsp;&nbsp;".$_SESSION['username'].'<a href="logout.php">登出</a>';
 	}
@@ -60,125 +60,58 @@
 		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
 		// header("Refresh:0;url=index.html");
 	}*/
+	
 	$my_db = mysqli_connect("localhost", "root", "");
  	mysqli_select_db($my_db,"my_db");
  	mysqli_query($my_db,"SET NAMES 'utf8'");
-	
-	$sql = "SELECT * FROM document ";
+	$title=$_REQUEST["title"];
+	$sql = "SELECT * FROM document where title ='$title' ";
 	$result = mysqli_query($my_db,$sql);
 	$num = mysqli_num_rows($result);
-	
-	?>
-
-	
-		<div class="col-12 border border-dark">
-			<p class="h3" style="text-align: center;">七天內截止公文</p>
-		<div>
-			<table class="table table-bordered table-sm">
-				<thead class="thead-dark table-hover">
-					<tr style="text-align: center;">
-						<th>發文單位</th>
-						<th>發文字號</th>
-						<th>對象姓名</th>
-						<th>截止日期</th>
-						<th>是否開會</th>
-						<th>發文檔案</th>														
-					</tr>
-				</thead>
-				<tbody>	
-<?php
-	//取得今天日期
-	$getDate= date("Y-m-d",mktime(0,0,0,date("m"),date("d"),date("Y")));
-			
-	for ($i=1; $i <=$num ; $i++) {
-		//計算日期並顯示	
-		$rs = mysqli_fetch_array($result);
-		$deadline=date($rs[6]);
-		$startdate=strtotime($getDate);
-		$enddate=strtotime($deadline);
-		$days=round(($enddate-$startdate)/3600/24) ;
-			if($days<=7){							
-?>						
-							
-							<tr>
-								<td style="text-align: center;"><?php echo $rs[2] ; ?></td>
-								<td style="text-align: center;"><?php echo $rs[3] ; ?></td>
-								<td style="text-align: center;"><?php echo $rs[4] ; ?></td>
-								<td style="text-align: center;"><?php echo $rs[6] ; ?></td>
-								<td style="text-align: center;"><?php echo $rs[11] ; ?></td>
-								<td style="text-align: center;">
-									<a href="<?php echo $rs[9]; ?>"  target="_blank" title="文件檔案">
-										<img src="images/link_logo.png" style="width: 25px;"/>
-									</a>
-								</td>
-							</tr>
-<?php 
-			}
-	} 
-?>					
-				</tbody>
-			</table>
-	  </div>
-	  <div class="border border-dark">
-		<p class="h3" style="text-align: center;">未結案公文</p>
-		<div>
-			<table class="table table-bordered table-sm">
-				<thead class="thead-dark table-hover">
-					<tr style="text-align: center;">
-						<th>發文單位</th>
-						<th>發文字號</th>
-						<th>對象姓名</th>
-						<th>截止日期</th>
-						<th>是否開會</th>
-						<th>發文檔案</th>
-						<th></th>														
-					</tr>
-				</thead>
-				<tbody>
-<?php 
-	$result = mysqli_query($my_db,$sql);
-	for ($i=1; $i <=$num ; $i++) {
-		$rs = mysqli_fetch_array($result);				
-		if($rs[8]==0){			
-?>	
-				<form action="end_job.php" method="POST"> 
-					<tr>
-						<td style="text-align: center;">
-							<?php echo $rs[2] ; ?>						
-						</td>
-						<td style="text-align: center;">
-							<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
-							<?php echo $rs[3] ; ?>
-						</td>
-						<td style="text-align: center;">
-							<?php echo $rs[4] ; ?>
-						</td>
-						<td style="text-align: center;">
-							<?php echo $rs[6] ; ?>
-						</td>
-						<td style="text-align: center;">
-							<?php echo $rs[11] ; ?>
-						</td>
-						<td style="text-align: center;">
-							<a href="<?php echo $rs[9]; ?>"  target="_blank" title="文件檔案">
-								<img src="images/link_logo.png" style="width: 25px;"/>
-							</a>
-						</td>
-						<td style="text-align: center;">
-							<input type="submit" value="結案" style="background-color:white;"/>
-						</td>
-						<td><input type="hidden" /></td>
-					</tr>
+	$rs = mysqli_fetch_array($result);
+	$date=date("Y-m-d");
+?>
+	<div id="wrapper" style="margin-top: 60px;">
+		<div class="col-12">
+			<p class="h3" style="text-align: center;">結案資料</p>
+			<div class="col-5 border border-dark" style="margin: 0 auto;">
+				<form action="endok_job.php" method="POST" enctype="multipart/form-data"> 
+					<br /><div>發函單位:
+						<input type="text" value="<?php echo $rs[2] ?>" style="background-color: #f4f27f;" readonly="readonly"/>						  
+					</div><br />
+					<div>公文字號:
+						<input type="text" value="<?php echo $rs[3] ?>" style="background-color: #f4f27f;" readonly="readonly"/>
+						  對象姓名:
+						<input type="text" value="<?php echo $rs[4] ?>" style="background-color: #f4f27f;" readonly="readonly"/>						 
+					</div><br />
+					<div>發文日期:
+						<input type="text" value="<?php echo $rs[5] ?>" style="background-color: #f4f27f;" readonly="readonly"/>
+						  截止日期:
+						<input type="text" value="<?php echo $rs[6] ?>" style="background-color: #f4f27f;" readonly="readonly"/>						  
+					</div><br />
+					<div>是否開會:
+						<input type="text" value="<?php echo $rs[11] ?>" style="background-color: #f4f27f;" readonly="readonly"/>
+						  文件檔案:
+						<a href="<?php echo $rs[9]; ?>"  target="_blank" title="文件檔案">
+										<img src="images/link_logo.png" style="width: 25px;"/></a>
+					</div><br />
+					<div>回覆日期:
+						<input type="text" name="cmpltdate" value="<?php echo $date ?>" style="background-color: #f4f27f;" readonly="readonly"/>
+					</div><br />
+					<div>回覆檔案上傳:
+						<input type="file" name="re_file" required="required"/ >
+					</div><br />
+					<div>備註:<br />
+						<textarea name="ps" style="width: 550px;height: 100px;"></textarea>
+						<input type="hidden" name="sql_id" value="<?php echo $rs[0] ; ?>"/>
+					</div><br />
+					<div>
+						<input type="submit" name="1" value="確認送出"/>
+					</div>
+					</div>
 				</form>
-<?php 
-			}
-	} 
-?>				
+			</div>		
 		</div>
-	  </div>
-	  </div>
-		
-	
 	</div>
 
 
