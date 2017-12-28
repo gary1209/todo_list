@@ -45,5 +45,9 @@
 	}
 	mysqli_query($my_db, $sql);
 	echo "<script>alert('儲存成功');</script>";
+<<<<<<< HEAD
 	header("REFRESH:0;url=user.php");
+=======
+	header("REFRESH:0;url=letter.php");
+>>>>>>> 4d6412237fa00bc713cf697de16a2eec9ae3db80
 ?>
