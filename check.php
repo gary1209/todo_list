@@ -6,7 +6,6 @@
 	$result = mysqli_query($my_link,$sql);
 	$num = mysqli_num_rows($result);
     $getDate= date("Y-m-d",mktime(0,0,0,date("m"),date("d"),date("Y")));
-    
 	$day = date("w");
 	//今天是周三，過期日期小於四天的都要通知
 	if ($day=="3"){ 
@@ -59,7 +58,7 @@
 
 
 
-function sendLineNotify($initData, $token= '0t9gK1r6QnucXB93YvNuyrvfgwhvCvstc0YIXUgDBGe',$url = 'https://notify-api.line.me/api/notify') {
+function sendLineNotify($initData, $token = '0t9gK1r6QnucXB93YvNuyrvfgwhvCvstc0YIXUgDBGe',$url = 'https://notify-api.line.me/api/notify') {
     $ch = curl_init();
     $header[] = 'Authorization: Bearer';
     $header[] = $token;
