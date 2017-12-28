@@ -59,13 +59,13 @@
 
 	
 	<?php
-	if($_SESSION['username'] != null){
+	/*if($_SESSION['username'] != null){
 	        echo "歡迎您&nbsp;&nbsp;".$_SESSION['username'].'<a href="logout.php">登出</a>';
 	}
 	else{
 		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
 		// header("Refresh:0;url=index.html");
-	}
+	}*/
 	?>
 
 	<section id="main" style="width:95%; height: 600px;">
