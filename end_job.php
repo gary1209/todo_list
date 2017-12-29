@@ -61,8 +61,7 @@
 		// header("Refresh:0;url=index.html");
 	}*/
 	
-	$my_db = mysqli_connect("localhost", "root", "");
- 	mysqli_select_db($my_db,"my_db");
+	include("mysql.php");
  	mysqli_query($my_db,"SET NAMES 'utf8'");
 	$title=$_REQUEST["title"];
 	$sql = "SELECT * FROM document where title ='$title' ";

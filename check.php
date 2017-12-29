@@ -1,9 +1,9 @@
 <?php 
  // $day = date("w", strtotime('2017-12-30')); //判斷特定日期星期幾
 	include('mysql.php');
- 	mysqli_query($my_link,"SET NAMES 'utf8'");
+ 	mysqli_query($my_db,"SET NAMES 'utf8'");
 	$sql = "SELECT * FROM document ";
-	$result = mysqli_query($my_link,$sql);
+	$result = mysqli_query($my_db,$sql);
 	$num = mysqli_num_rows($result);
     $getDate= date("Y-m-d",mktime(0,0,0,date("m"),date("d"),date("Y")));
 	$day = date("w");
@@ -55,7 +55,8 @@
 			}
 	    }	
 	}
-
+    
+     echo "<script>window.close();</script>";
 
 
 function sendLineNotify($initData, $token = '0t9gK1r6QnucXB93YvNuyrvfgwhvCvstc0YIXUgDBGe',$url = 'https://notify-api.line.me/api/notify') {
