@@ -100,7 +100,7 @@
 						<input type="file" name="re_file" required="required"/ >
 					</div><br />
 					<div>備註:<br />
-						<textarea name="ps" style="width: 550px;height: 100px;"></textarea>
+						<textarea name="ps" readonly="readonly"  style="width: 550px; background-color: #f4f27f; height: 100px;"><?php echo $rs[12]; ?></textarea>
 						<input type="hidden" name="sql_id" value="<?php echo $rs[0] ; ?>"/>
 					</div><br />
 					<div>

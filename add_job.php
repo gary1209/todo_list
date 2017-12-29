@@ -75,10 +75,6 @@
 		// header("Refresh:0;url=index.html");
 	}*/
 	?>
-<<<<<<< HEAD
-=======
-
->>>>>>> 13f26ebf7842426540a72425b98537e8144f4f4c
 		<div class="col-12">
 			<p class="h3" style="text-align: center;">新增資料</p><br />
 			<div class="col-4" style="margin: 0 auto;">
@@ -126,13 +122,9 @@
 					</div>
 				</form>
 			</div>		
-<<<<<<< HEAD
-		</div>	
-=======
-		</div>
 
-	
->>>>>>> 13f26ebf7842426540a72425b98537e8144f4f4c
+		</div>	
+		</div>
 	</div>
 
 

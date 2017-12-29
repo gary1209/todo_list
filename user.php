@@ -178,12 +178,10 @@
 						<td style="text-align: center;">
 							<input type="submit" value="結案" style="background-color:white;"/>
 						</td>
-
-						
-					</tr>
 				</form>
-				<form action="end_job.php" method="POST"> 		
+				<form action="change.php" method="POST"> 		
 						<td style="text-align: center;">
+							<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
 							<input type="submit" value="修改" style="background-color:white;"/>
 						</td>
 				</form>		

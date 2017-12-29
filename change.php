@@ -51,76 +51,55 @@
     </main> -->
     
 
-	<div id="wrapper" style="margin-top: 60px;">
+	
 <?php
-	include("mysql.php");
- 	mysqli_query($my_db,"SET NAMES 'utf8'");		
-	if($_SESSION['username'] != null){
-	        echo "&nbsp;&nbsp;歡迎您&nbsp;&nbsp;".$_SESSION['username'].'&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.php">登出</a>';
+	/*if($_SESSION['username'] != null){
+	        echo "歡迎您&nbsp;&nbsp;".$_SESSION['username'].'<a href="logout.php">登出</a>';
 	}
 	else{
 		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
 		// header("Refresh:0;url=index.html");
-	}
+	}*/
+	
+	include("mysql.php");
+ 	mysqli_query($my_db,"SET NAMES 'utf8'");
 	$title=$_REQUEST["title"];
 	$sql = "SELECT * FROM document where title ='$title' ";
 	$result = mysqli_query($my_db,$sql);
 	$rs = mysqli_fetch_array($result);
 ?>
-	<div class="">
-		<p class="h3" style="text-align: center;">搜尋結果</p>
-		<div>
-			<table class="table table-bordered table-sm">
-				<thead class="thead-dark table-hover">
-					<tr style="text-align: center;">
-						<th>發文單位</th>
-						<th>發文字號</th>
-						<th>對象姓名</th>
-						<th>截止日期</th>
-						<th>是否開會</th>
-						<th>發文檔案</th>
-						<th></th>	
-						<th></th>													
-					</tr>
-				</thead>
-				<tbody>
-				<form action="end_job.php" method="POST"> 
-					<tr>
-						<td style="text-align: center;">
-							<?php echo $rs[2] ; ?>						
-						</td>
-						<td style="text-align: center;">
-							<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
-							<?php echo $rs[3] ; ?>
-						</td>
-						<td style="text-align: center;">
-							<?php echo $rs[4] ; ?>
-						</td>
-						<td style="text-align: center;">
-							<?php echo $rs[6] ; ?>
-						</td>
-						<td style="text-align: center;">
-							<?php echo $rs[11] ; ?>
-						</td>
-						<td style="text-align: center;">
-							<a href="<?php echo $rs[9]; ?>"  target="_blank" title="文件檔案">
-								<img src="images/link_logo.png" style="width: 25px;"/>
-							</a>
-						</td>
-						<td style="text-align: center;">
-							<input type="submit" value="結案" style="background-color:white;"/>
-						</td>
+	<div id="wrapper" style="margin-top: 60px;">
+		<div class="col-12">
+			<p class="h3" style="text-align: center;">公文資料</p>
+			<div class="col-5 border border-dark" style="margin: 0 auto;">
+				<form action="changeok.php" method="POST" enctype="multipart/form-data"> 
+					<br />
+					<div>發函單位:
+						<input type="text" name="unit" value="<?php echo $rs[2] ?>"/>
+						  公文字號:
+						<input type="text" name="title" value="<?php echo $rs[3] ?>"/>						  
+					</div><br />
+					<div>對象姓名:
+						<input type="text" name="name" value="<?php echo $rs[4] ?>"/>
+						  發文日期:
+						<input type="text" name="startdate" value="<?php echo $rs[5] ?>"/>						 
+					</div><br />
+					<div>截止日期:
+						<input type="text" name="deadline" value="<?php echo $rs[6] ?>"/>
+						  是否開會:
+						<input type="text" name="meeting" value="<?php echo $rs[11] ?>"/>						  
+					</div><br />
+					<div>備註:<br />
+						<textarea name="ps" style="width: 550px; height: 100px;"><?php echo $rs[12]; ?></textarea>
+						<input type="hidden" name="sql_id" value="<?php echo $rs[0] ; ?>"/>
+					</div><br />
+					<div>
+						<input type="submit" name="1" value="修改"/>
+					</div>
+					</div>
 				</form>
-				<form action="change.php" method="POST"> 		
-						<td style="text-align: center;">
-							<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
-							<input type="submit" value="修改" style="background-color:white;"/>
-						</td>
-				</form>		
-					</tr>
-				</tbody>
+			</div>		
 		</div>
-	</div>
 	</div>
 
 
