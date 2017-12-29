@@ -76,7 +76,7 @@
   $sql = "select name, email,password from user ";
   //$sql = select * from ask where email='$email';
 
-  $result = mysqli_query($my_link,$sql);
+  $result = mysqli_query($my_db,$sql);
 
   if (mysqli_num_rows($result) > 0) {
       // output data of each row

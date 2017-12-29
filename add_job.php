@@ -56,7 +56,15 @@
       </div>
     </main> -->
 	<div id="wrapper" style="margin-top: 60px;">
-
+    <?php
+	if($_SESSION['username'] != null){
+	        echo "&nbsp;&nbsp;歡迎您&nbsp;&nbsp;".$_SESSION['username'].'&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.php">登出</a>';
+	}
+	else{
+		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
+		// header("Refresh:0;url=index.html");
+	}
+	?>
 	
 	<?php
 	/*if($_SESSION['username'] != null){
@@ -67,9 +75,6 @@
 		// header("Refresh:0;url=index.html");
 	}*/
 	?>
-
-	
-<<<<<<< HEAD
 		<div class="col-12">
 			<p class="h3" style="text-align: center;">新增資料</p>
 			<div class="col-4" style="margin: 0 auto;">
@@ -115,7 +120,6 @@
 				</form>
 			</div>		
 		</div>
-=======
 		<div class="col-12 border border-dark">
 					<ul class="nav">
  						 <li class="nav-item">
@@ -129,9 +133,6 @@
 						
 					</div>
 				</div>
-		
-	
->>>>>>> 4d6412237fa00bc713cf697de16a2eec9ae3db80
 	</div>
 
 
