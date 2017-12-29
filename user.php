@@ -141,7 +141,8 @@
 						<th>截止日期</th>
 						<th>是否開會</th>
 						<th>發文檔案</th>
-						<th></th>														
+						<th></th>	
+						<th></th>													
 					</tr>
 				</thead>
 				<tbody>
@@ -177,9 +178,14 @@
 						<td style="text-align: center;">
 							<input type="submit" value="結案" style="background-color:white;"/>
 						</td>
-						<td><input type="hidden" /></td>
-					</tr>
 				</form>
+				<form action="end_job.php" method="POST"> 		
+						<td style="text-align: center;">
+							<input type="submit" value="修改" style="background-color:white;"/>
+						</td>
+				</form>		
+					</tr>
+							
 <?php 
 			}
 	} 

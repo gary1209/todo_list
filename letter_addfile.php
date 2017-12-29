@@ -14,6 +14,7 @@
 	$Deadline_year=$_REQUEST["Deadline_year"];
 	$Deadline_month=$_REQUEST["Deadline_month"];
 	$Deadline_day=$_REQUEST["Deadline_day"];
+	$ps=$_REQUEST["ps"];
 	$unit_file=$_FILES["unit_file"]["name"]; 
 	//判斷檔案是否錯誤
 	if ($_FILES["unit_file"]["error"] === UPLOAD_ERR_OK){ 
@@ -33,14 +34,14 @@
 	//存入資料庫
 	$unit_file="upload/" . $unit_file;
 	if(empty($Deadline_year) && empty($Deadline_month) && empty($Deadline_day)){
-		$sql="INSERT INTO document (unit , title , name , startdate , file1 , meeting )
+		$sql="INSERT INTO document (unit , title , name , startdate , file1 , meeting  , ps)
 						VALUES ('$unit' , '$title' , '$name' , '$startdate_year-$startdate_month-$startdate_day' , 
-								'$unit_file' , '$meeting')";
+								'$unit_file' , '$meeting' , '$ps')";
 	}else{
 	
-	$sql="INSERT INTO document (unit , title , name , startdate , Deadline , file1 , meeting )
+	$sql="INSERT INTO document (unit , title , name , startdate , Deadline , file1 , meeting , ps)
 						VALUES ('$unit' , '$title' , '$name' , '$startdate_year-$startdate_month-$startdate_day' , 
-								'$Deadline_year-$Deadline_month-$Deadline_day' , '$unit_file' , '$meeting')";
+								'$Deadline_year-$Deadline_month-$Deadline_day' , '$unit_file' , '$meeting' , '$ps')";
 	}
 	mysqli_query($my_db, $sql);
 	echo "<script>alert('儲存成功');</script>";
