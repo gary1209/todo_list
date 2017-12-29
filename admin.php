@@ -1,4 +1,5 @@
 
+<?php session_start(); ?>
 
 <!doctype html>
 <html lang="en">
@@ -22,7 +23,7 @@
           echo "歡迎您&nbsp;&nbsp;".$_SESSION['username'].'<a href="logout.php">登出</a>';
   }
   else{
-    echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
+    echo "<script>alert('who are you123!?'); location.href = 'index.html';</script>";
     // header("Refresh:0;url=index.html");
   }
   ?>

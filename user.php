@@ -49,9 +49,18 @@
         <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
       </div>
     </main> -->
+    
     <div id="wrapper" style="margin-top: 60px;">
 
-	
+	<?php
+	if($_SESSION['username'] != null){
+	        echo "&nbsp;&nbsp;歡迎您&nbsp;&nbsp;".$_SESSION['username'].'&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.php">登出</a>';
+	}
+	else{
+		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
+		// header("Refresh:0;url=index.html");
+	}
+	?>
 	<?php
 	/*if($_SESSION['username'] != null){
 	        echo "歡迎您&nbsp;&nbsp;".$_SESSION['username'].'<a href="logout.php">登出</a>';
@@ -60,8 +69,9 @@
 		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
 		// header("Refresh:0;url=index.html");
 	}*/
-	$my_db = mysqli_connect("localhost", "root", "");
- 	mysqli_select_db($my_db,"my_db");
+	// $my_db = mysqli_connect("localhost", "root", "");
+ // 	mysqli_select_db($my_db,"my_db");
+	include("mysql.php");
  	mysqli_query($my_db,"SET NAMES 'utf8'");
 	
 	$sql = "SELECT * FROM document ";

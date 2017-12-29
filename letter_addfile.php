@@ -1,7 +1,6 @@
 <?php
 	//與資料庫連線
- 	$my_db = mysqli_connect("localhost", "root", "");
- 	mysqli_select_db($my_db,"my_db");
+ 	include("mysql.php");
  	mysqli_query($my_db,"SET NAMES 'utf8'");
 	
 	//獲取HTML資料並存入變數

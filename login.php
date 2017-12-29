@@ -12,7 +12,7 @@ else{  // 合法登入
 	include("mysql.php");
 	//搜尋資料庫資料
 	$sql = "SELECT * FROM user where email = '$email'";
-	$result = mysqli_query($my_link,$sql);
+	$result = mysqli_query($my_db,$sql);
 	$row = @mysqli_fetch_row($result);
 	
 	//判斷MySQL資料庫裡是否有這個會員

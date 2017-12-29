@@ -56,7 +56,15 @@
       </div>
     </main> -->
 	<div id="wrapper" style="margin-top: 60px;">
-
+    <?php
+	if($_SESSION['username'] != null){
+	        echo "&nbsp;&nbsp;歡迎您&nbsp;&nbsp;".$_SESSION['username'].'&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.php">登出</a>';
+	}
+	else{
+		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
+		// header("Refresh:0;url=index.html");
+	}
+	?>
 	
 	<?php
 	/*if($_SESSION['username'] != null){
@@ -67,9 +75,12 @@
 		// header("Refresh:0;url=index.html");
 	}*/
 	?>
+<<<<<<< HEAD
 
 	
 
+=======
+>>>>>>> 868bccfdc9289b2fb10f772745af13324226eef2
 		<div class="col-12">
 			<p class="h3" style="text-align: center;">新增資料</p><br />
 			<div class="col-4" style="margin: 0 auto;">
@@ -115,6 +126,22 @@
 				</form>
 			</div>		
 		</div>
+<<<<<<< HEAD
+=======
+		<div class="col-12 border border-dark">
+					<ul class="nav">
+ 						 <li class="nav-item">
+    						<a class="nav-link active" href="add_job.php">七天內截止公文</a>
+  						</li>
+  						<li class="nav-item">
+   							 <a class="nav-link" href="letter.php">新增</a>
+  						</li>  							
+					</ul>
+					<div>
+						
+					</div>
+				</div>
+>>>>>>> 868bccfdc9289b2fb10f772745af13324226eef2
 	</div>
 
 
