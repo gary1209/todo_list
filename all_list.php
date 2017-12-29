@@ -133,11 +133,15 @@
 									<img src="images/link_logo.png" style="width: 25px;"/>
 								</a>
 							</td>
+<?php if(!empty($rs[10])){ ?>
 							<td style="text-align: center;">
 								<a href="<?php echo $rs[10]; ?>"  target="_blank" title="文件檔案">
 									<img src="images/link_logo.png" style="width: 25px;"/>
 								</a>
 							</td>
+<?php }else{ ?>
+							<td style="text-align: center;">無</td>		
+<?php } ?> 
 								<td style="text-align: center;">
 								<?php echo $rs[11] ; ?>
 							</td>

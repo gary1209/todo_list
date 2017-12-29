@@ -79,6 +79,7 @@
 						<th>截止日期</th>
 						<th>是否開會</th>
 						<th>發文檔案</th>
+						<th>回覆檔案</th>
 						<th></th>	
 						<th></th>													
 					</tr>
@@ -107,6 +108,15 @@
 								<img src="images/link_logo.png" style="width: 25px;"/>
 							</a>
 						</td>
+<?php if(!empty($rs[10])){ ?>
+						<td style="text-align: center;">
+							<a href="<?php echo $rs[10]; ?>"  target="_blank" title="文件檔案">
+								<img src="images/link_logo.png" style="width: 25px;"/>
+							</a>
+						</td>
+<?php }else{ ?>
+						<td style="text-align: center;">無</td>		
+<?php } ?> 
 						<td style="text-align: center;">
 							<input type="submit" value="結案" style="background-color:white;"/>
 						</td>
