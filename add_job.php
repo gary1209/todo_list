@@ -75,20 +75,15 @@
 		// header("Refresh:0;url=index.html");
 	}*/
 	?>
-<<<<<<< HEAD
 
-	
-
-=======
->>>>>>> 868bccfdc9289b2fb10f772745af13324226eef2
 		<div class="col-12">
 			<p class="h3" style="text-align: center;">新增資料</p><br />
 			<div class="col-4" style="margin: 0 auto;">
 				<form action="letter_addfile.php" method="POST" enctype="multipart/form-data"> 
 					<div class="col-11">發函單位:　
-						<input type="radio" name="unit"required="required" value="教育局"/>教育局
-						<input type="radio" name="unit"required="required" value="法務局"/>法務局
-						<input type="radio" name="unit"required="required" value="國稅局"/>國稅局
+						<input type="radio" name="unit" required="required" checked value="教育局"/>教育局
+						<input type="radio" name="unit" required="required" value="法務局"/>法務局
+						<input type="radio" name="unit" required="required" value="國稅局"/>國稅局
 					</div><br />
 										
 					<div class="col-11">發函日期:　
@@ -98,16 +93,17 @@
 					</div><br />
 					
 					<div class="col-11">發文字號:　
-						<input type="text" name="title" size="30"required="required"/>					
+						<input type="text" name="title" size="30" required="required"/>					
 					</div><br />
 					
 					<div class="col-11">對象姓名:　
-						<input type="text" name="name" size="5"required="required"/>					
+						<input type="text" name="name" size="5" required="required"/>					
 					</div><br />
 					
 					<div class="col-11">是否前往開會:　
+						<input type="radio" name="meeting" required="required" value="否" checked="" />否
 						<input type="radio" name="meeting" required="required" value="是"/>是
-						<input type="radio" name="meeting" required="required" value="否"/>否
+						
 						
 					</div><br />					
 					<div class="col-11">函件檔案:　
@@ -126,22 +122,8 @@
 				</form>
 			</div>		
 		</div>
-<<<<<<< HEAD
-=======
-		<div class="col-12 border border-dark">
-					<ul class="nav">
- 						 <li class="nav-item">
-    						<a class="nav-link active" href="add_job.php">七天內截止公文</a>
-  						</li>
-  						<li class="nav-item">
-   							 <a class="nav-link" href="letter.php">新增</a>
-  						</li>  							
-					</ul>
-					<div>
-						
-					</div>
-				</div>
->>>>>>> 868bccfdc9289b2fb10f772745af13324226eef2
+
+	
 	</div>
 
 

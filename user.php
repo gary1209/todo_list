@@ -81,7 +81,7 @@
 	?>
 
 	
-		<div class="col-12 border border-dark">
+		<div class="col-12 ">
 			<p class="h3" style="text-align: center;">七天內截止公文</p>
 		<div>
 			<table class="table table-bordered table-sm">
@@ -129,7 +129,7 @@
 				</tbody>
 			</table>
 	  </div>
-	  <div class="border border-dark">
+	  <div class="">
 		<p class="h3" style="text-align: center;">未結案公文</p>
 		<div>
 			<table class="table table-bordered table-sm">
@@ -177,7 +177,7 @@
 						<td style="text-align: center;">
 							<input type="submit" value="結案" style="background-color:white;"/>
 						</td>
-						<td><input type="hidden" /></td>
+						
 					</tr>
 				</form>
 <?php 
