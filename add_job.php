@@ -39,8 +39,8 @@
             <a class="nav-link" href="add_job.php">新增公文</a>
           </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <form action="search.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
+          <input class="form-control mr-sm-2" name="title" type="text" placeholder="公文字號搜尋" aria-label="公文字號搜尋" required="required">
           <button class="btn btn-secondary my-2 my-sm-0" type="submit">搜尋</button>
         </form>
       </div>
@@ -69,9 +69,9 @@
 	?>
 
 	
-<<<<<<< HEAD
+
 		<div class="col-12">
-			<p class="h3" style="text-align: center;">新增資料</p>
+			<p class="h3" style="text-align: center;">新增資料</p><br />
 			<div class="col-4" style="margin: 0 auto;">
 				<form action="letter_addfile.php" method="POST" enctype="multipart/form-data"> 
 					<div class="col-11">發函單位:　
@@ -115,23 +115,6 @@
 				</form>
 			</div>		
 		</div>
-=======
-		<div class="col-12 border border-dark">
-					<ul class="nav">
- 						 <li class="nav-item">
-    						<a class="nav-link active" href="add_job.php">七天內截止公文</a>
-  						</li>
-  						<li class="nav-item">
-   							 <a class="nav-link" href="letter.php">新增</a>
-  						</li>  							
-					</ul>
-					<div>
-						
-					</div>
-				</div>
-		
-	
->>>>>>> 4d6412237fa00bc713cf697de16a2eec9ae3db80
 	</div>
 
 

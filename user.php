@@ -33,8 +33,8 @@
             <a class="nav-link" href="add_job.php">新增公文</a>
           </li>
         </ul>
-        <form action="https://tw.yahoo.com" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+        <form action="search.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
+          <input class="form-control mr-sm-2" name="title" type="text" placeholder="公文字號搜尋" aria-label="公文字號搜尋" required="required">
           <button class="btn btn-secondary my-2 my-sm-0" type="submit">搜尋</button>
         </form>
       </div>

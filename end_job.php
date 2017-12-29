@@ -33,9 +33,9 @@
             <a class="nav-link" href="add_job.php">新增公文</a>
           </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit" ">搜尋</button>
+        <form action="search.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
+          <input class="form-control mr-sm-2" name="title" type="text" placeholder="公文字號搜尋" aria-label="公文字號搜尋" required="required">
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">搜尋</button>
         </form>
       </div>
     </nav>
@@ -67,13 +67,12 @@
 	$title=$_REQUEST["title"];
 	$sql = "SELECT * FROM document where title ='$title' ";
 	$result = mysqli_query($my_db,$sql);
-	$num = mysqli_num_rows($result);
 	$rs = mysqli_fetch_array($result);
 	$date=date("Y-m-d");
 ?>
 	<div id="wrapper" style="margin-top: 60px;">
 		<div class="col-12">
-			<p class="h3" style="text-align: center;">結案資料</p>
+			<p class="h3" style="text-align: center;">公文資料</p>
 			<div class="col-5 border border-dark" style="margin: 0 auto;">
 				<form action="endok_job.php" method="POST" enctype="multipart/form-data"> 
 					<br /><div>發函單位:
@@ -106,7 +105,7 @@
 						<input type="hidden" name="sql_id" value="<?php echo $rs[0] ; ?>"/>
 					</div><br />
 					<div>
-						<input type="submit" name="1" value="確認送出"/>
+						<input type="submit" name="1" value="結案"/>
 					</div>
 					</div>
 				</form>
