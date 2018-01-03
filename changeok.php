@@ -18,7 +18,7 @@
 		    ps = '$ps' WHERE id = '$sql_id'";
 	mysqli_query($my_db, $sql);
 	
-	echo "<script>alert('結案成功');</script>";
+	echo "<script>alert('修改成功');</script>";
 	header("REFRESH:0;url=user.php");
 	
 ?>    

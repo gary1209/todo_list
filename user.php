@@ -107,10 +107,14 @@
 		$startdate=strtotime($getDate);
 		$enddate=strtotime($deadline);
 		$days=round(($enddate-$startdate)/3600/24) ;
-			if($days<=7){							
+			if ($days<=7 && $rs[8]==0 ){
+				if($days<0){							
 ?>						
-							
-							<tr>
+									
+							<tr style="color: red; font-weight:bold ;">
+<?php }
+				else{ ?>	<tr>
+	<?php } ?>
 								<td style="text-align: center;"><?php echo $rs[2] ; ?></td>
 								<td style="text-align: center;"><?php echo $rs[3] ; ?></td>
 								<td style="text-align: center;"><?php echo $rs[4] ; ?></td>
@@ -150,7 +154,8 @@
 	$result = mysqli_query($my_db,$sql);
 	for ($i=1; $i <=$num ; $i++) {
 		$rs = mysqli_fetch_array($result);				
-		if($rs[8]==0){			
+		if($rs[8]==0){
+						
 ?>	
 				<form action="end_job.php" method="POST"> 
 					<tr>
