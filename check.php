@@ -15,7 +15,7 @@
 		    $startdate=strtotime($getDate);
 		    $enddate=strtotime($deadline);
 			$days=round(($enddate-$startdate)/3600/24) ;
-			if($days<=3){
+			if($days<=3 && $days>=0){
 	            $message = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."截止日期:".$rs[6] ;
 	            $initData['message'] = $message;
                 sendLineNotify($initData);
@@ -23,14 +23,14 @@
 	    }
 	}
 	//今天是周四，過期日期小於三天的都要通知
-	if ($day=="4"){ 
+	else if ($day=="4"){ 
 	 	for ($i=1; $i <=$num ; $i++){
 		 	$rs = mysqli_fetch_array($result);
 		    $deadline=date($rs[6]);
 		    $startdate=strtotime($getDate);
 		    $enddate=strtotime($deadline);
 			$days=round(($enddate-$startdate)/3600/24) ;
-			if($days<=3){
+			if($days<=3 && $days>=0){
 	            // echo $rs[2];  //單位
 	            // echo $rs[3];  //文號
 	            // echo $rs[6];  //截止日期
@@ -48,15 +48,13 @@
 		    $startdate=strtotime($getDate);
 		    $enddate=strtotime($deadline);
 			$days=round(($enddate-$startdate)/3600/24) ;
-			if($days<=2){
+			if($days<=2 && $days>=0){
 	        	$message = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."截止日期:".$rs[6] ;
 	            $initData['message'] = $message;
                 sendLineNotify($initData);
 			}
 	    }	
 	}
-    
-     echo "<script>window.close();</script>";
 
 
 function sendLineNotify($initData, $token = '0t9gK1r6QnucXB93YvNuyrvfgwhvCvstc0YIXUgDBGe',$url = 'https://notify-api.line.me/api/notify') {
