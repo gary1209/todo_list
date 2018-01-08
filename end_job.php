@@ -97,7 +97,7 @@
 						<input type="text" name="cmpltdate" value="<?php echo $date ?>" style="background-color: #f4f27f;" readonly="readonly"/>
 					</div><br />
 					<div>回覆檔案上傳:
-						<input type="file" name="re_file" required="required"/ >
+						<input type="file" name="re_file"/ >
 					</div><br />
 					<div>備註:<br />
 						<textarea name="ps" readonly="readonly"  style="width: 550px; background-color: #f4f27f; height: 100px;"><?php echo $rs[12]; ?></textarea>

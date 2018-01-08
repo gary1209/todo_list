@@ -48,89 +48,127 @@
         <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser's viewport.</p>
         <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
       </div>
-    </main> -->
+  </main> -->  
     
 
-	<div id="wrapper" style="margin-top: 60px;">
-<?php
+    <div id="wrapper" style="margin-top: 60px;">
+
+	<?php
+  if($_SESSION['username'] != null){
+          echo "&nbsp;&nbsp;歡迎您&nbsp;&nbsp;".$_SESSION['username'].'&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.php">登出</a>';
+  }
+  else{
+    echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
+    // header("Refresh:0;url=index.html");
+  }
+  ?>
+	<?php
+
 	include("mysql.php");
- 	mysqli_query($my_db,"SET NAMES 'utf8'");		
-	if($_SESSION['username'] != null){
-	        echo "&nbsp;&nbsp;歡迎您&nbsp;&nbsp;".$_SESSION['username'].'&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.php">登出</a>';
-	}
-	else{
-		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
-		// header("Refresh:0;url=index.html");
-	}
+ 	mysqli_query($my_db,"SET NAMES 'utf8'");
+	
 	$title=$_REQUEST["title"];
 	$sql = "SELECT * FROM document where title ='$title' ";
+
 	$result = mysqli_query($my_db,$sql);
-	$rs = mysqli_fetch_array($result);
-?>
-	<div class="">
-		<p class="h3" style="text-align: center;">搜尋結果</p>
-		<div>
-			<table class="table table-bordered table-sm">
-				<thead class="thead-dark table-hover">
-					<tr style="text-align: center;">
-						<th>發文單位</th>
-						<th>發文字號</th>
-						<th>對象姓名</th>
-						<th>截止日期</th>
-						<th>是否開會</th>
-						<th>發文檔案</th>
-						<th>回覆檔案</th>
-						<th></th>	
-						<th></th>													
-					</tr>
-				</thead>
-				<tbody>
-				<form action="end_job.php" method="POST"> 
-					<tr>
-						<td style="text-align: center;">
-							<?php echo $rs[2] ; ?>						
-						</td>
-						<td style="text-align: center;">
-							<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
-							<?php echo $rs[3] ; ?>
-						</td>
-						<td style="text-align: center;">
-							<?php echo $rs[4] ; ?>
-						</td>
-						<td style="text-align: center;">
-							<?php echo $rs[6] ; ?>
-						</td>
-						<td style="text-align: center;">
-							<?php echo $rs[11] ; ?>
-						</td>
-						<td style="text-align: center;">
-							<a href="<?php echo $rs[9]; ?>"  target="_blank" title="文件檔案">
-								<img src="images/link_logo.png" style="width: 25px;"/>
-							</a>
-						</td>
+	$num = mysqli_num_rows($result);	
+	?>
+
+		<br />
+		<div class="col-12 ">
+			<div>
+				<table class="table table-bordered table-sm">
+					<thead class="thead-dark table-hover">
+						<tr style="text-align: center;">
+							<th>發文單位</th>
+							<th>發文字號</th>
+							<th>對象姓名</th>
+							<th>文件時間</th>
+							<th>截止日期</th>
+							<th>回覆日期</th>
+							<th>是否結案</th>
+							<th>發文檔案</th>													
+							<th>回覆檔案</th>
+							<th>是否開會</th>
+							<th>備註</th>
+							<th></th>
+							<th></th>												
+						</tr>
+					</thead>
+					<tbody>
+<?php 
+	for ($i=1; $i <=$num ; $i++) {
+		$rs = mysqli_fetch_array($result);
+	if($rs[8]==1){
+		$rs[8]="是";
+	}else{
+		$rs[8]="否";
+	}		
+?>	
+						
+						<tr>
+							<form action="end_job.php" method="POST">
+							<td style="text-align: center;">
+								<?php echo $rs[2] ; ?>						
+							</td>
+							<td style="text-align: center;">
+								<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
+								<?php echo $rs[3] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<?php echo $rs[4] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<?php echo $rs[5] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<?php echo $rs[6] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<?php echo $rs[7] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<?php echo $rs[8] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<a href="<?php echo $rs[9]; ?>"  target="_blank" title="文件檔案">
+									<img src="images/link_logo.png" style="width: 25px;"/>
+								</a>
+							</td>
 <?php if(!empty($rs[10])){ ?>
-						<td style="text-align: center;">
-							<a href="<?php echo $rs[10]; ?>"  target="_blank" title="文件檔案">
-								<img src="images/link_logo.png" style="width: 25px;"/>
-							</a>
-						</td>
+							<td style="text-align: center;">
+								<a href="<?php echo $rs[10]; ?>"  target="_blank" title="文件檔案">
+									<img src="images/link_logo.png" style="width: 25px;"/>
+								</a>
+							</td>
 <?php }else{ ?>
-						<td style="text-align: center;">無</td>		
+							<td style="text-align: center;">無</td>		
 <?php } ?> 
-						<td style="text-align: center;">
-							<input type="submit" value="結案" style="background-color:white;"/>
-						</td>
-				</form>
-				<form action="change.php" method="POST"> 		
-						<td style="text-align: center;">
-							<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
-							<input type="submit" value="修改" style="background-color:white;"/>
-						</td>
-				</form>		
-					</tr>
-				</tbody>
+							<td style="text-align: center;">
+								<?php echo $rs[11] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<?php echo $rs[12] ; ?>
+							</td>							
+							<td style="text-align: center;">
+								<input type="submit" value="結案" style="background-color:white;"/>
+							</td>
+							</form>
+						<form action="change.php" method="POST"> 		
+							<td style="text-align: center;">
+								<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
+								<input type="submit" value="修改" style="background-color:white;"/>
+							</td>
+						</form>									
+						</tr>						
+					</tbody>
+				
+<?php 
+	} 
+?>														
+				</table>
+			</div>
 		</div>
-	</div>
 	</div>
 
 
