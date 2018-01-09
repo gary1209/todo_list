@@ -39,7 +39,11 @@
             <a class="nav-link" href="add_job.php">新增公文</a>
           </li>
         </ul>
-        <form action="search.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
+        <form action="searchbyname.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
+          <input class="form-control mr-sm-2" name="title" type="text" placeholder="對象搜尋" aria-label="對象搜尋" required="required">
+          <button class="btn btn-secondary my-2 my-sm-0" style="margin-right: 10px;" type="submit">搜尋</button>
+        </form>
+        <form action="searchbytitle.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
           <input class="form-control mr-sm-2" name="title" type="text" placeholder="公文字號搜尋" aria-label="公文字號搜尋" required="required">
           <button class="btn btn-secondary my-2 my-sm-0" type="submit">搜尋</button>
         </form>
@@ -70,8 +74,13 @@
 
 	include("mysql.php");
  	mysqli_query($my_db,"SET NAMES 'utf8'");
+	if($_SESSION['admin']!=3){
+		$sql = "SELECT * FROM document ORDER BY id DESC ";
+	}
+	elseif ($_SESSION['admin']==3) {
+		$sql = "SELECT * FROM document WHERE  (unit LIKE '教育局' OR unit LIKE '消保會') ";
+	}
 	
-	$sql = "SELECT * FROM document ";
 	$result = mysqli_query($my_db,$sql);
 	$num = mysqli_num_rows($result);	
 	?>
@@ -92,7 +101,8 @@
 							<th>發文檔案</th>													
 							<th>回覆檔案</th>
 							<th>是否開會</th>
-							<th>備註</th>												
+							<th>備註</th>
+							<th></th>												
 						</tr>
 					</thead>
 					<tbody>
@@ -147,7 +157,13 @@
 							</td>
 								<td style="text-align: center;">
 								<?php echo $rs[12] ; ?>
-							</td>							
+							</td>
+							<form action="change.php" method="POST"> 		
+									<td style="text-align: center;">
+										<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
+										<input type="submit" value="修改" style="background-color:white;"/>
+									</td>
+							</form>								
 						</tr>						
 					</tbody>
 				

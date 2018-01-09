@@ -7,9 +7,15 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="GaryHsu">
-    <!--<link rel="stylesheet" href="assets/css/main.css" />-->
+    <!--<link rel="stylesheet" href="assets/css/main.css" /> -->
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <title>待處理公文</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom styles for this template -->
+    <link href="navbar-top-fixed.css" rel="stylesheet">
   </head>
 
   <body>
@@ -20,40 +26,30 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
+          
           <li class="nav-item active">
-            <a class="nav-link" href="user.php">處理中 <span class="sr-only">(current)</span></a>
+            <a class="nav-link" href="assistant.php">顯示全部</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="finish_list.php">已結案</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="all_list.php">顯示全部</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="add_job.php">新增公文</a>
+            <a class="nav-link" href="assis_add_job.php">新增公文</a>
           </li>
         </ul>
-        <form action="search.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
-          <input class="form-control mr-sm-2" name="title" type="text" placeholder="公文字號搜尋" aria-label="公文字號搜尋" required="required">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit">搜尋</button>
-        </form>
+        
       </div>
     </nav>
 
 
 
- <!--  <main role="main" class="container">
+ <!--    <main role="main" class="container">
       <div class="jumbotron">
         <h1>Navbar example</h1>
         <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser's viewport.</p>
         <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
       </div>
-  </main> -->  
-    
-
+    </main> -->
     <div id="wrapper" style="margin-top: 60px;">
 
-	<?php
+<?php
   if($_SESSION['username'] != null){
           echo "&nbsp;&nbsp;歡迎您&nbsp;&nbsp;".$_SESSION['username'].'&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.php">登出</a>';
   }
@@ -61,15 +57,13 @@
     echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
     // header("Refresh:0;url=index.html");
   }
-  ?>
+ ?>
 	<?php
 
 	include("mysql.php");
  	mysqli_query($my_db,"SET NAMES 'utf8'");
 	
-	$title=$_REQUEST["title"];
-	$sql = "SELECT * FROM document where title ='$title' ";
-
+	$sql = "SELECT * FROM document ORDER BY id DESC ";
 	$result = mysqli_query($my_db,$sql);
 	$num = mysqli_num_rows($result);	
 	?>
@@ -90,9 +84,8 @@
 							<th>發文檔案</th>													
 							<th>回覆檔案</th>
 							<th>是否開會</th>
-							<th>備註</th>
-							<th></th>
-							<th></th>												
+							<th>備註</th>	
+							<th></th>											
 						</tr>
 					</thead>
 					<tbody>
@@ -105,9 +98,7 @@
 		$rs[8]="否";
 	}		
 ?>	
-						
 						<tr>
-							<form action="end_job.php" method="POST">
 							<td style="text-align: center;">
 								<?php echo $rs[2] ; ?>						
 							</td>
@@ -144,22 +135,18 @@
 <?php }else{ ?>
 							<td style="text-align: center;">無</td>		
 <?php } ?> 
-							<td style="text-align: center;">
+								<td style="text-align: center;">
 								<?php echo $rs[11] ; ?>
 							</td>
-							<td style="text-align: center;">
+								<td style="text-align: center;">
 								<?php echo $rs[12] ; ?>
-							</td>							
-							<td style="text-align: center;">
-								<input type="submit" value="結案" style="background-color:white;"/>
 							</td>
-							</form>
-						<form action="change.php" method="POST"> 		
-							<td style="text-align: center;">
-								<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
-								<input type="submit" value="修改" style="background-color:white;"/>
-							</td>
-						</form>									
+							<form action="assis_change.php" method="POST"> 		
+									<td style="text-align: center;">
+										<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
+										<input type="submit" value="修改" style="background-color:white;"/>
+									</td>
+							</form>									
 						</tr>						
 					</tbody>
 				

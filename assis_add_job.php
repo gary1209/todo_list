@@ -26,27 +26,15 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
+          
           <li class="nav-item">
-            <a class="nav-link" href="user.php">處理中 <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="finish_list.php">已結案</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="all_list.php">顯示全部</a>
+            <a class="nav-link" href="assistant.php">顯示全部</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="add_job.php">新增公文</a>
+            <a class="nav-link" href="assis_add_job.php">新增公文</a>
           </li>
         </ul>
-        <form action="searchbyname.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
-          <input class="form-control mr-sm-2" name="title" type="text" placeholder="對象搜尋" aria-label="對象搜尋" required="required">
-          <button class="btn btn-secondary my-2 my-sm-0" style="margin-right: 10px;" type="submit">搜尋</button>
-        </form>
-        <form action="searchbytitle.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
-          <input class="form-control mr-sm-2" name="title" type="text" placeholder="公文字號搜尋" aria-label="公文字號搜尋" required="required">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit">搜尋</button>
-        </form>
+       
       </div>
     </nav>
 
