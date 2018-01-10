@@ -16,7 +16,7 @@
 		    $enddate=strtotime($deadline);
 			$days=round(($enddate-$startdate)/3600/24) ;
 			if($days<=5){
-	            $message = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."對象:".$rs[4]."\n"."截止日期:".$rs[6] ;
+	            $message = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."對象:".$rs[4]."\n"."截止日期:".$rs[6]."\n"."檔案:http://www.way-to-win.com/new2018/todo_list/".$rs[9] ;
 	            $initData['message'] = $message;
                 sendLineNotify($initData);
 			}
@@ -34,7 +34,7 @@
 	            // echo $rs[2];  //單位
 	            // echo $rs[3];  //文號
 	            // echo $rs[6];  //截止日期
-	            $message = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."對象:".$rs[4]."\n"."截止日期:".$rs[6] ;
+	            $message = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."對象:".$rs[4]."\n"."截止日期:".$rs[6]."\n"."檔案:http://www.way-to-win.com/new2018/todo_list/".$rs[9] ;
 	            $initData['message'] = $message;
                 sendLineNotify($initData);
 			}
@@ -49,7 +49,7 @@
 		    $enddate=strtotime($deadline);
 			$days=round(($enddate-$startdate)/3600/24) ;
 			if($days<=3){
-	        	$message = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."對象:".$rs[4]."\n"."截止日期:".$rs[6] ;
+	        	$message = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."對象:".$rs[4]."\n"."截止日期:".$rs[6]."\n"."檔案:http://www.way-to-win.com/new2018/todo_list/".$rs[9] ;
 	            $initData['message'] = $message;
                 sendLineNotify($initData);
 			}
@@ -67,7 +67,7 @@
 		    $enddate=strtotime($deadline);
 			$days=round(($enddate-$startdate)/3600/24) ;
 			if($days<=5){
-	            $message2 = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."對象:".$rs[4]."\n"."截止日期:".$rs[6] ;
+	            $message = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."對象:".$rs[4]."\n"."截止日期:".$rs[6]."\n"."檔案:http://www.way-to-win.com/new2018/todo_list/".$rs[9] ;
 	            $initData2['message'] = $message2;
                 sendLineNotify2($initData2);
 			}
@@ -85,7 +85,7 @@
 	            // echo $rs[2];  //單位
 	            // echo $rs[3];  //文號
 	            // echo $rs[6];  //截止日期
-	            $message2 = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."對象:".$rs[4]."\n"."截止日期:".$rs[6] ;
+	            $message = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."對象:".$rs[4]."\n"."截止日期:".$rs[6]."\n"."檔案:http://www.way-to-win.com/new2018/todo_list/".$rs[9] ;
 	            $initData2['message'] = $message2;
                 sendLineNotify2($initData2);
 			}
@@ -100,7 +100,7 @@
 		    $enddate=strtotime($deadline);
 			$days=round(($enddate-$startdate)/3600/24) ;
 			if($days<=3){
-	        	$message2 = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."對象:".$rs[4]."\n"."截止日期:".$rs[6] ;
+	        	$message = "\n"."單位:".$rs[2]."\n"."文號:".$rs[3]."\n"."對象:".$rs[4]."\n"."截止日期:".$rs[6]."\n"."檔案:http://www.way-to-win.com/new2018/todo_list/".$rs[9] ;
 	            $initData2['message'] = $message2;
                 sendLineNotify2($initData2);
 			}
