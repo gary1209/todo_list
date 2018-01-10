@@ -10,12 +10,6 @@
     <!--<link rel="stylesheet" href="assets/css/main.css" />-->
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <title>待處理公文</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="navbar-top-fixed.css" rel="stylesheet">
   </head>
 
   <body>
@@ -26,7 +20,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="user.php">處理中 <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
@@ -35,15 +29,11 @@
           <li class="nav-item">
             <a class="nav-link" href="all_list.php">顯示全部</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="add_job.php">新增公文</a>
           </li>
         </ul>
-        <form action="searchbyname.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
-          <input class="form-control mr-sm-2" name="title" type="text" placeholder="對象搜尋" aria-label="對象搜尋" required="required">
-          <button class="btn btn-secondary my-2 my-sm-0" style="margin-right: 10px;" type="submit">搜尋</button>
-        </form>
-        <form action="searchbytitle.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
+        <form action="search.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
           <input class="form-control mr-sm-2" name="title" type="text" placeholder="公文字號搜尋" aria-label="公文字號搜尋" required="required">
           <button class="btn btn-secondary my-2 my-sm-0" type="submit">搜尋</button>
         </form>
@@ -52,25 +42,17 @@
 
 
 
- <!--    <main role="main" class="container">
+ <!--  <main role="main" class="container">
       <div class="jumbotron">
         <h1>Navbar example</h1>
         <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser's viewport.</p>
         <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
       </div>
     </main> -->
-	<div id="wrapper" style="margin-top: 60px;">
-    <?php
-	if($_SESSION['username'] != null){
-	        echo "&nbsp;&nbsp;歡迎您&nbsp;&nbsp;".$_SESSION['username'].'&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.php">登出</a>';
-	}
-	else{
-		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
-		// header("Refresh:0;url=index.html");
-	}
-	?>
+    
+
 	
-	<?php
+<?php
 	/*if($_SESSION['username'] != null){
 	        echo "歡迎您&nbsp;&nbsp;".$_SESSION['username'].'<a href="logout.php">登出</a>';
 	}
@@ -78,59 +60,55 @@
 		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
 		// header("Refresh:0;url=index.html");
 	}*/
-	?>
+	
+	include("mysql.php");
+ 	mysqli_query($my_db,"SET NAMES 'utf8'");
+	$title=$_REQUEST["title"];
+	$sql = "SELECT * FROM document where title ='$title' ";
+	$result = mysqli_query($my_db,$sql);
+	$rs = mysqli_fetch_array($result);
+	$date=date("Y-m-d");
+?>
+	<div id="wrapper" style="margin-top: 60px;">
 		<div class="col-12">
-			<p class="h3" style="text-align: center;">新增資料</p><br />
-			<div class="col-4" style="margin: 0 auto;">
-				<form action="letter_addfile.php" method="POST" enctype="multipart/form-data"> 
-					<div class="col-11">發函單位:　
-						<input type="radio" name="unit" required="required" checked value="教育局"/>教育局
-						<input type="radio" name="unit" required="required" value="法務局"/>法務部
-						<input type="radio" name="unit" required="required" value="國稅局"/>國稅局
-						<input type="radio" name="unit" required="required" value="消保會"/>消保會
-						<input type="radio" name="unit" required="required" value="其他"/>其他
+			<p class="h3" style="text-align: center;">公文資料</p>
+			<div class="col-5 border border-dark" style="margin: 0 auto;">
+				<form action="endok_job.php" method="POST" enctype="multipart/form-data"> 
+					<br /><div>發函單位:
+						<input type="text" value="<?php echo $rs[2] ?>" style="background-color: #f4f27f;" readonly="readonly"/>						  
 					</div><br />
-										
-					<div class="col-11">發函日期:　
-						<input type="text" size="1" name="startdate_year" required="required"/>西元年
-						<input type="text" size="1" name="startdate_month" required="required"/>月
-						<input type="text" size="1" name="startdate_day" required="required"/>日
+					<div>公文字號:
+						<input type="text" value="<?php echo $rs[3] ?>" style="background-color: #f4f27f;" readonly="readonly"/>
+						  對象姓名:
+						<input type="text" value="<?php echo $rs[4] ?>" style="background-color: #f4f27f;" readonly="readonly"/>						 
 					</div><br />
-					
-					
-					<div class="col-11">發文字號:　
-						<input type="text" name="title" size="30" required="required"/>					
+					<div>發文日期:
+						<input type="text" value="<?php echo $rs[5] ?>" style="background-color: #f4f27f;" readonly="readonly"/>
+						  截止日期:
+						<input type="text" value="<?php echo $rs[6] ?>" style="background-color: #f4f27f;" readonly="readonly"/>						  
 					</div><br />
-					
-					<div class="col-11">對象姓名:　
-						<input type="text" name="name" size="5" />					
+					<div>是否開會:
+						<input type="text" value="<?php echo $rs[11] ?>" style="background-color: #f4f27f;" readonly="readonly"/>
+						  文件檔案:
+						<a href="<?php echo $rs[9]; ?>"  target="_blank" title="文件檔案">
+										<img src="images/link_logo.png" style="width: 25px;"/></a>
 					</div><br />
-					
-					<div class="col-11">是否前往開會:　
-						<input type="radio" name="meeting" required="required" value="否" checked="" />否
-						<input type="radio" name="meeting" required="required" value="是"/>是
-						
-						
-					</div><br />					
-					<div class="col-11">函件檔案:　
-						<input type="file" name="unit_file"  required="required"/>						
+					<div>回覆日期:
+						<input type="text" name="cmpltdate" value="<?php echo $date ?>" style="background-color: #f4f27f;" readonly="readonly"/>
 					</div><br />
-					
-					<div class="col-11">截止日期:　
-						<input type="text" name="Deadline_year" size="1"/>西元年
-						<input type="text" name="Deadline_month" size="1"/>月
-						<input type="text" name="Deadline_day" size="1"/>日
+					<div>回覆檔案上傳:
+						<input type="file" name="re_file"/ >
 					</div><br />
 					<div>備註:<br />
-						<textarea name="ps" style="width: 550px;height: 100px;"></textarea>
+						<textarea name="ps" readonly="readonly"  style="width: 550px; background-color: #f4f27f; height: 100px;"><?php echo $rs[12]; ?></textarea>
+						<input type="hidden" name="sql_id" value="<?php echo $rs[0] ; ?>"/>
 					</div><br />
-					<div> 
-						<input type="submit" value="送出"/>						
+					<div>
+						<input type="submit" name="1" value="結案"/>
+					</div>
 					</div>
 				</form>
 			</div>		
-
-		</div>	
 		</div>
 	</div>
 

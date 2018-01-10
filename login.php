@@ -12,14 +12,15 @@ else{  // 合法登入
 	include("mysql.php");
 	//搜尋資料庫資料
 	$sql = "SELECT * FROM user where email = '$email'";
-	$result = mysqli_query($my_link,$sql);
+	$result = mysqli_query($my_db,$sql);
 	$row = @mysqli_fetch_row($result);
 	
 	//判斷MySQL資料庫裡是否有這個會員
-	if($row[1] == $email && $row[2] == $password && $row[4] == 0 ){ //normal user login in
+	if($row[1] == $email && $row[2] == $password && ($row[4] == 0 || $row[4]== 3) ){ //normal user login in
 	        //將帳號寫入session，方便驗證使用者身份
 	        $_SESSION['username'] = $row[3];
 	        $_SESSION['email'] = $email;
+	        $_SESSION['admin'] = $row[4];
 	        header('Location: user.php');
 	    }
 
@@ -28,7 +29,13 @@ else{  // 合法登入
         	$_SESSION['email'] = $email;
 	        header('Location: admin.php');
 	}
-	
+
+	else if($row[1] == $email && $row[2] == $password && $row[4] == 2){ //櫃台登入
+        	$_SESSION['username'] = $row[3];
+        	$_SESSION['email'] = $email;
+	        header('Location: assistant.php');
+	}
+
 	else{
 	        echo "<script>alert('帳號密碼不符，請重新登入'); location.href = 'index.html';</script>";
 	        //echo '登入失敗，請重新登入';

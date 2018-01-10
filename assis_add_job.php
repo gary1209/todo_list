@@ -26,23 +26,15 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
+          
           <li class="nav-item">
-            <a class="nav-link" href="user.php">處理中 <span class="sr-only">(current)</span></a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="finish_list.php">已結案</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="all_list.php">顯示全部</a>
+            <a class="nav-link" href="assistant.php">顯示全部</a>
           </li>
           <li class="nav-item active">
-            <a class="nav-link" href="add_job.php">新增公文</a>
+            <a class="nav-link" href="assis_add_job.php">新增公文</a>
           </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit">搜尋</button>
-        </form>
+       
       </div>
     </nav>
 
@@ -55,72 +47,79 @@
         <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
       </div>
     </main> -->
-    <div id="wrapper" style="margin-top: 60px;">
-
-	
-	<?php
+	<div id="wrapper" style="margin-top: 60px;">
+    <?php
 	if($_SESSION['username'] != null){
-	        echo "歡迎您&nbsp;&nbsp;".$_SESSION['username'].'<a href="logout.php">登出</a>';
+	        echo "&nbsp;&nbsp;歡迎您&nbsp;&nbsp;".$_SESSION['username'].'&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.php">登出</a>';
 	}
 	else{
 		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
 		// header("Refresh:0;url=index.html");
 	}
 	?>
-
 	
-		<div class="col-12 border border-dark">
-					<ul class="nav">
- 						 <li class="nav-item">
-    						<a class="nav-link active" href="add_job.php">七天內截止公文</a>
-  						</li>
-  						<li class="nav-item">
-   							 <a class="nav-link" href="letter.php">新增</a>
-  						</li>  							
-					</ul>
-					<form action="letter_addfile.php" method="POST" enctype="multipart/form-data"> 
+	<?php
+	/*if($_SESSION['username'] != null){
+	        echo "歡迎您&nbsp;&nbsp;".$_SESSION['username'].'<a href="logout.php">登出</a>';
+	}
+	else{
+		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
+		// header("Refresh:0;url=index.html");
+	}*/
+	?>
+		<div class="col-12">
+			<p class="h3" style="text-align: center;">新增資料</p><br />
+			<div class="col-4" style="margin: 0 auto;">
+				<form action="letter_addfile.php" method="POST" enctype="multipart/form-data"> 
 					<div class="col-11">發函單位:　
-									<input type="radio" name="unit"required="required" value="教育局"/>教育局
-								　	<input type="radio" name="unit"required="required" value="法務局"/>法務局
-								　	<input type="radio" name="unit"required="required" value="國稅局"/>國稅局
+						<input type="radio" name="unit" required="required" checked value="教育局"/>教育局
+						<input type="radio" name="unit" required="required" value="法務局"/>法務部
+						<input type="radio" name="unit" required="required" value="國稅局"/>國稅局
+						<input type="radio" name="unit" required="required" value="消保會"/>消保會
+						<input type="radio" name="unit" required="required" value="其他"/>其他
 					</div><br />
-					
+										
 					<div class="col-11">發函日期:　
-									<input type="text" size="1" name="startdate_year" required="required"/>年
-								　	<input type="text" size="1" name="startdate_month" required="required"/>月
-								　	<input type="text" size="1" name="startdate_day" required="required"/>日
+						<input type="text" size="1" name="startdate_year" required="required"/>西元年
+						<input type="text" size="1" name="startdate_month" required="required"/>月
+						<input type="text" size="1" name="startdate_day" required="required"/>日
 					</div><br />
 					
-					<div class="col-11">函件標題:　
-									<input type="text" name="title" size="30"required="required"/>					
+					
+					<div class="col-11">發文字號:　
+						<input type="text" name="title" size="30" required="required"/>					
 					</div><br />
 					
 					<div class="col-11">對象姓名:　
-									<input type="text" name="name" size="5"required="required"/>					
+						<input type="text" name="name" size="5" />					
 					</div><br />
 					
 					<div class="col-11">是否前往開會:　
-									<input type="radio" name="meeting" required="required" value="是"/>是
-								　	<input type="radio" name="meeting" required="required" value="否"/>否
+						<input type="radio" name="meeting" required="required" value="否" checked="" />否
+						<input type="radio" name="meeting" required="required" value="是"/>是
+						
 						
 					</div><br />					
 					<div class="col-11">函件檔案:　
-								  	<input type="file" name="unit_file"  required="required"/>						
+						<input type="file" name="unit_file"  required="required"/>						
 					</div><br />
 					
 					<div class="col-11">截止日期:　
-								  	<input type="text" name="Deadline_year" size="1"/>年
-								　	<input type="text" name="Deadline_month" size="1"/>月
-								　	<input type="text" name="Deadline_day" size="1"/>日
+						<input type="text" name="Deadline_year" size="1"/>西元年
+						<input type="text" name="Deadline_month" size="1"/>月
+						<input type="text" name="Deadline_day" size="1"/>日
 					</div><br />
-					
-					<div> <input type="submit" value="送出"/>
-						
+					<div>備註:<br />
+						<textarea name="ps" style="width: 550px;height: 100px;"></textarea>
+					</div><br />
+					<div> 
+						<input type="submit" value="送出"/>						
 					</div>
-					</form>
-				</div>
-		
-	
+				</form>
+			</div>		
+
+		</div>	
+		</div>
 	</div>
 
 

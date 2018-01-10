@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="GaryHsu">
-    <link rel="stylesheet" href="assets/css/main.css" />
+    <!--<link rel="stylesheet" href="assets/css/main.css" />-->
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <title>待處理公文</title>
   </head>
@@ -33,40 +33,183 @@
             <a class="nav-link" href="add_job.php">新增公文</a>
           </li>
         </ul>
-        <form class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit" ">搜尋</button>
+        <form action="searchbyname.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
+          <input class="form-control mr-sm-2" name="title" type="text" placeholder="對象搜尋" aria-label="對象搜尋" required="required">
+          <button class="btn btn-secondary my-2 my-sm-0" style="margin-right: 10px;" type="submit">搜尋</button>
+        </form>
+        <form action="searchbytitle.php" class="form-inline mt-2 mt-md-0" style="margin: 0 0 0 0;">
+          <input class="form-control mr-sm-2" name="title" type="text" placeholder="公文字號搜尋" aria-label="公文字號搜尋" required="required">
+          <button class="btn btn-secondary my-2 my-sm-0" type="submit">搜尋</button>
         </form>
       </div>
     </nav>
 
 
 
- <!--    <main role="main" class="container">
+ <!--   <main role="main" class="container">
       <div class="jumbotron">
         <h1>Navbar example</h1>
         <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser's viewport.</p>
         <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
       </div>
     </main> -->
+    
     <div id="wrapper" style="margin-top: 60px;">
 
-	
 	<?php
 	if($_SESSION['username'] != null){
-	        echo "歡迎您&nbsp;&nbsp;".$_SESSION['username'].'<a href="logout.php">登出</a>';
+	        echo "&nbsp;&nbsp;歡迎您&nbsp;&nbsp;".$_SESSION['username'].'&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.php">登出</a>';
 	}
 	else{
 		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
 		// header("Refresh:0;url=index.html");
 	}
 	?>
+	<?php
+	/*if($_SESSION['username'] != null){
+	        echo "歡迎您&nbsp;&nbsp;".$_SESSION['username'].'<a href="logout.php">登出</a>';
+	}
+	else{
+		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
+		// header("Refresh:0;url=index.html");
+	}*/
+	// $my_db = mysqli_connect("localhost", "root", "");
+ // 	mysqli_select_db($my_db,"my_db");
+	include("mysql.php");
+ 	mysqli_query($my_db,"SET NAMES 'utf8'");
+	
+	if($_SESSION['admin']==0){
+		$sql = "SELECT * FROM document ";
+	}
+	elseif ($_SESSION['admin']==3) {
+		$sql = "SELECT * FROM document WHERE (closed = 0) AND (unit LIKE '教育局' OR unit LIKE '消保會') ";
+	}
+	$result = mysqli_query($my_db,$sql);
+	$num = mysqli_num_rows($result);
+	
+	?>
 
-	<section id="main" style="width:95%; height: 600px;">
-		目前沒有資料
+	
+		<div class="col-12 ">
+			<p class="h3" style="text-align: center;">七天內截止公文</p>
+		<div>
+			<table class="table table-bordered table-sm">
+				<thead class="thead-dark table-hover">
+					<tr style="text-align: center;">
+						<th>發文單位</th>
+						<th>發文字號</th>
+						<th>對象姓名</th>
+						<th>截止日期</th>
+						<th>是否開會</th>
+						<th>發文檔案</th>														
+					</tr>
+				</thead>
+				<tbody>	
+<?php
+	//取得今天日期
+	$getDate= date("Y-m-d",mktime(0,0,0,date("m"),date("d"),date("Y")));
+			
+	for ($i=1; $i <=$num ; $i++) {
+		//計算日期並顯示	
+		$rs = mysqli_fetch_array($result);
+		$deadline=date($rs[6]);
+		$startdate=strtotime($getDate);
+		$enddate=strtotime($deadline);
+		$days=round(($enddate-$startdate)/3600/24) ;
+			if ($days<=7 && $rs[8]==0 ){
+				if($days<0){							
+?>						
+									
+							<tr style="color: red; font-weight:bold ;">
+<?php }
+				else{ ?>	<tr>
+	<?php } ?>
+								<td style="text-align: center;"><?php echo $rs[2] ; ?></td>
+								<td style="text-align: center;"><?php echo $rs[3] ; ?></td>
+								<td style="text-align: center;"><?php echo $rs[4] ; ?></td>
+								<td style="text-align: center;"><?php echo $rs[6] ; ?></td>
+								<td style="text-align: center;"><?php echo $rs[11] ; ?></td>
+								<td style="text-align: center;">
+									<a href="<?php echo $rs[9]; ?>"  target="_blank" title="文件檔案">
+										<img src="images/link_logo.png" style="width: 25px;"/>
+									</a>
+								</td>
+							</tr>
+<?php 
+			}
+	} 
+?>					
+				</tbody>
+			</table>
+	  </div>
+	  <div class="">
+		<p class="h3" style="text-align: center;">未結案公文</p>
+		<div>
+			<table class="table table-bordered table-sm">
+				<thead class="thead-dark table-hover">
+					<tr style="text-align: center;">
+						<th>發文單位</th>
+						<th>發文字號</th>
+						<th>對象姓名</th>
+						<th>截止日期</th>
+						<th>是否開會</th>
+						<th>發文檔案</th>
+						<th></th>	
+						<th></th>													
+					</tr>
+				</thead>
+				<tbody>
+<?php 
+	$result = mysqli_query($my_db,$sql);
+	for ($i=1; $i <=$num ; $i++) {
+		$rs = mysqli_fetch_array($result);				
+		if($rs[8]==0){
+						
+?>	
+				<form action="end_job.php" method="POST"> 
+					<tr>
+						<td style="text-align: center;">
+							<?php echo $rs[2] ; ?>						
+						</td>
+						<td style="text-align: center;">
+							<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
+							<?php echo $rs[3] ; ?>
+						</td>
+						<td style="text-align: center;">
+							<?php echo $rs[4] ; ?>
+						</td>
+						<td style="text-align: center;">
+							<?php echo $rs[6] ; ?>
+						</td>
+						<td style="text-align: center;">
+							<?php echo $rs[11] ; ?>
+						</td>
+						<td style="text-align: center;">
+							<a href="<?php echo $rs[9]; ?>"  target="_blank" title="文件檔案">
+								<img src="images/link_logo.png" style="width: 25px;"/>
+							</a>
+						</td>
+						<td style="text-align: center;">
+							<input type="submit" value="結案" style="background-color:white;"/>
+						</td>
+				</form>
+				<form action="change.php" method="POST"> 		
+						<td style="text-align: center;">
+							<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
+							<input type="submit" value="修改" style="background-color:white;"/>
+						</td>
+				</form>		
+					</tr>
+							
+<?php 
+			}
+	} 
+?>				
+		</div>
+	  </div>
+	  </div>
 		
-		
-	</section>
+	
 	</div>
 
 

@@ -10,12 +10,6 @@
     <!--<link rel="stylesheet" href="assets/css/main.css" />-->
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
     <title>待處理公文</title>
-
-    <!-- Bootstrap core CSS -->
-    <link href="../../../../dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Custom styles for this template -->
-    <link href="navbar-top-fixed.css" rel="stylesheet">
   </head>
 
   <body>
@@ -26,7 +20,7 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
-          <li class="nav-item">
+          <li class="nav-item active">
             <a class="nav-link" href="user.php">處理中 <span class="sr-only">(current)</span></a>
           </li>
           <li class="nav-item">
@@ -35,7 +29,7 @@
           <li class="nav-item">
             <a class="nav-link" href="all_list.php">顯示全部</a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item">
             <a class="nav-link" href="add_job.php">新增公文</a>
           </li>
         </ul>
@@ -52,85 +46,132 @@
 
 
 
- <!--    <main role="main" class="container">
+ <!--  <main role="main" class="container">
       <div class="jumbotron">
         <h1>Navbar example</h1>
         <p class="lead">This example is a quick exercise to illustrate how fixed to top navbar works. As you scroll, it will remain fixed to the top of your browser's viewport.</p>
         <a class="btn btn-lg btn-primary" href="../../components/navbar/" role="button">View navbar docs &raquo;</a>
       </div>
-    </main> -->
-	<div id="wrapper" style="margin-top: 60px;">
-    <?php
-	if($_SESSION['username'] != null){
-	        echo "&nbsp;&nbsp;歡迎您&nbsp;&nbsp;".$_SESSION['username'].'&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.php">登出</a>';
-	}
-	else{
-		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
-		// header("Refresh:0;url=index.html");
-	}
-	?>
-	
-	<?php
-	/*if($_SESSION['username'] != null){
-	        echo "歡迎您&nbsp;&nbsp;".$_SESSION['username'].'<a href="logout.php">登出</a>';
-	}
-	else{
-		echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
-		// header("Refresh:0;url=index.html");
-	}*/
-	?>
-		<div class="col-12">
-			<p class="h3" style="text-align: center;">新增資料</p><br />
-			<div class="col-4" style="margin: 0 auto;">
-				<form action="letter_addfile.php" method="POST" enctype="multipart/form-data"> 
-					<div class="col-11">發函單位:　
-						<input type="radio" name="unit" required="required" checked value="教育局"/>教育局
-						<input type="radio" name="unit" required="required" value="法務局"/>法務部
-						<input type="radio" name="unit" required="required" value="國稅局"/>國稅局
-						<input type="radio" name="unit" required="required" value="消保會"/>消保會
-						<input type="radio" name="unit" required="required" value="其他"/>其他
-					</div><br />
-										
-					<div class="col-11">發函日期:　
-						<input type="text" size="1" name="startdate_year" required="required"/>西元年
-						<input type="text" size="1" name="startdate_month" required="required"/>月
-						<input type="text" size="1" name="startdate_day" required="required"/>日
-					</div><br />
-					
-					
-					<div class="col-11">發文字號:　
-						<input type="text" name="title" size="30" required="required"/>					
-					</div><br />
-					
-					<div class="col-11">對象姓名:　
-						<input type="text" name="name" size="5" />					
-					</div><br />
-					
-					<div class="col-11">是否前往開會:　
-						<input type="radio" name="meeting" required="required" value="否" checked="" />否
-						<input type="radio" name="meeting" required="required" value="是"/>是
-						
-						
-					</div><br />					
-					<div class="col-11">函件檔案:　
-						<input type="file" name="unit_file"  required="required"/>						
-					</div><br />
-					
-					<div class="col-11">截止日期:　
-						<input type="text" name="Deadline_year" size="1"/>西元年
-						<input type="text" name="Deadline_month" size="1"/>月
-						<input type="text" name="Deadline_day" size="1"/>日
-					</div><br />
-					<div>備註:<br />
-						<textarea name="ps" style="width: 550px;height: 100px;"></textarea>
-					</div><br />
-					<div> 
-						<input type="submit" value="送出"/>						
-					</div>
-				</form>
-			</div>		
+  </main> -->  
+    
 
-		</div>	
+    <div id="wrapper" style="margin-top: 60px;">
+
+	<?php
+  if($_SESSION['username'] != null){
+          echo "&nbsp;&nbsp;歡迎您&nbsp;&nbsp;".$_SESSION['username'].'&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout.php">登出</a>';
+  }
+  else{
+    echo "<script>alert('who are you!?'); location.href = 'index.html';</script>";
+    // header("Refresh:0;url=index.html");
+  }
+  ?>
+	<?php
+
+	include("mysql.php");
+ 	mysqli_query($my_db,"SET NAMES 'utf8'");
+	
+	$title=$_REQUEST["title"];
+	$sql = "SELECT * FROM document where title ='$title' ";
+
+	$result = mysqli_query($my_db,$sql);
+	$num = mysqli_num_rows($result);	
+	?>
+
+		<br />
+		<div class="col-12 ">
+			<div>
+				<table class="table table-bordered table-sm">
+					<thead class="thead-dark table-hover">
+						<tr style="text-align: center;">
+							<th>發文單位</th>
+							<th>發文字號</th>
+							<th>對象姓名</th>
+							<th>文件時間</th>
+							<th>截止日期</th>
+							<th>回覆日期</th>
+							<th>是否結案</th>
+							<th>發文檔案</th>													
+							<th>回覆檔案</th>
+							<th>是否開會</th>
+							<th>備註</th>
+							<th></th>
+							<th></th>												
+						</tr>
+					</thead>
+					<tbody>
+<?php 
+	for ($i=1; $i <=$num ; $i++) {
+		$rs = mysqli_fetch_array($result);
+	if($rs[8]==1){
+		$rs[8]="是";
+	}else{
+		$rs[8]="否";
+	}		
+?>	
+						
+						<tr>
+							<form action="end_job.php" method="POST">
+							<td style="text-align: center;">
+								<?php echo $rs[2] ; ?>						
+							</td>
+							<td style="text-align: center;">
+								<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
+								<?php echo $rs[3] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<?php echo $rs[4] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<?php echo $rs[5] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<?php echo $rs[6] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<?php echo $rs[7] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<?php echo $rs[8] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<a href="<?php echo $rs[9]; ?>"  target="_blank" title="文件檔案">
+									<img src="images/link_logo.png" style="width: 25px;"/>
+								</a>
+							</td>
+<?php if(!empty($rs[10])){ ?>
+							<td style="text-align: center;">
+								<a href="<?php echo $rs[10]; ?>"  target="_blank" title="文件檔案">
+									<img src="images/link_logo.png" style="width: 25px;"/>
+								</a>
+							</td>
+<?php }else{ ?>
+							<td style="text-align: center;">無</td>		
+<?php } ?> 
+							<td style="text-align: center;">
+								<?php echo $rs[11] ; ?>
+							</td>
+							<td style="text-align: center;">
+								<?php echo $rs[12] ; ?>
+							</td>							
+							<td style="text-align: center;">
+								<input type="submit" value="結案" style="background-color:white;"/>
+							</td>
+							</form>
+						<form action="change.php" method="POST"> 		
+							<td style="text-align: center;">
+								<input type="hidden" name="title" value="<?php echo $rs[3] ; ?>"/>
+								<input type="submit" value="修改" style="background-color:white;"/>
+							</td>
+						</form>									
+						</tr>						
+					</tbody>
+				
+<?php 
+	} 
+?>														
+				</table>
+			</div>
 		</div>
 	</div>
 
