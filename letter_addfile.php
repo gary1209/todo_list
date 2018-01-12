@@ -2,9 +2,12 @@
 	//與資料庫連線
  	include("mysql.php");
  	mysqli_query($my_db,"SET NAMES 'utf8'");
-	
+	$sql="SELECT id FROM document ORDER BY id DESC LIMIT 1";
+	$result=mysqli_query($my_db, $sql);
+	$id=mysqli_fetch_assoc($result);
+	$img_id=$id['id']+1;
 	//獲取HTML資料並存入變數
-    $unit=$_REQUEST["unit"];
+  	$unit=$_REQUEST["unit"];
 	$startdate_year=$_REQUEST["startdate_year"];
 	$startdate_month=$_REQUEST["startdate_month"];
 	$startdate_day=$_REQUEST["startdate_day"];
@@ -23,6 +26,7 @@
    	 echo "檔案已存在。<br/>";
   	} else {
   	  $file = $_FILES["unit_file"]["tmp_name"];
+	  $unit_file="img".$img_id;
   	  $dest = "upload/" . $unit_file;
 
   	  //將檔案移至指定位置
