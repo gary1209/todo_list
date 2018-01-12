@@ -30,6 +30,7 @@
    			header("REFRESH:0;url=user.php");
   		} else {
 			$file = $_FILES["re_file"]["tmp_name"];
+			$re_file="reimg".$sql_id;
 			$dest = "refile_upload/" . $re_file;
 
   		//將檔案移至指定位置
